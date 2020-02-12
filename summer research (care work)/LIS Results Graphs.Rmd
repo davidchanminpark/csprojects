@@ -1,0 +1,423 @@
+---
+title: "LIS Care Work vs Non Care Work Descriptive Trends"
+author: "David Park"
+date: "8/15/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r begin, include=FALSE, echo=FALSE, message=FALSE}
+
+lisdata <- read.csv("LIS Results.csv", stringsAsFactors = FALSE)
+
+lisdata <- lisdata[!is.na(lisdata$Mean.Income...Carework),]
+
+# convert from percentage to number
+lisdata$Freq...Carework <- as.numeric(substr(lisdata$Freq...Carework,0,nchar(lisdata$Freq...Carework)-1))
+
+lisdata$Freq...Non.Carework <- as.numeric(substr(lisdata$Freq...Carework,0,nchar(lisdata$Freq...Non.Carework)-1))
+
+lisdata$Freq...Non.Carework <- as.numeric(substr(lisdata$Freq...Carework,0,nchar(lisdata$Freq...Non.Carework)-1))
+
+# plot graphs function
+create_plots <- function(countryname) {
+  
+  data_broad <- lisdata[lisdata$Country==countryname & lisdata$Carework=="Broad" ,]
+  
+  data_concise <- lisdata[lisdata$Country==countryname & lisdata$Carework=="Concise",]
+  
+  # create time series objects
+
+  plot_broad_size <- data_broad$Freq...Carework
+  
+  broad_years <- data_broad$Year
+  
+  plot_broad_inc_care <- data_broad$Mean.Income...Carework
+  
+  plot_broad_inc_non <- data_broad$Mean.Income...Non.Carework
+  
+  minincome <- min(data_broad$Mean.Income...Carework, data_broad$Mean.Income...Non.Carework)
+  
+  maxincome <- max(data_broad$Mean.Income...Carework, data_broad$Mean.Income...Non.Carework)
+  
+  minperc <- min(data_broad$Freq...Carework, data_broad$Freq...Non.Carework)
+  
+  maxperc <- max(data_broad$Freq...Carework, data_broad$Freq...Non.Carework)
+  
+  minyear <- min(data_broad$Year)
+  
+  maxyear <- max(data_broad$Year)
+
+  if (nrow(data_concise)!=0) {
+    
+    plot_concise_size <- data_concise$Freq...Carework
+    
+    concise_years <- data_concise$Year
+  
+    plot_concise_inc_care <- data_concise$Mean.Income...Carework
+  
+    plot_concise_inc_non <- data_concise$Mean.Income...Non.Carework
+    
+    minincome_concise <- min(data_concise$Mean.Income...Carework, data_broad$Mean.Income...Non.Carework)
+  
+    maxincome_concise <- max(data_concise$Mean.Income...Carework, data_concise$Mean.Income...Non.Carework)
+    
+    minperc_concise <- min(data_concise$Freq...Carework, data_concise$Freq...Non.Carework)
+  
+    maxperc_concise <- max(data_concise$Freq...Carework, data_concise$Freq...Non.Carework)
+    
+    minincome <- min(minincome, minincome_concise)
+    
+    maxincome <- max(maxincome, maxincome_concise)
+    
+    minperc <- min(minperc, minperc_concise)
+    
+    maxperc <- max(maxperc, maxperc_concise)
+  }
+
+  #plot graphs
+  
+  if (nrow(data_concise)==0) {
+    
+    plot(broad_years, plot_broad_size, type="l", xlab="Year", ylab="Care Work Industry Size (%)", col="red", xlim=c(minyear, maxyear), ylim=c(minperc, maxperc))
+    title(main=sprintf("Percentage of %s's care work industry size relative to total industry size (broad)", unique(data_broad$Country)), cex.main=0.75)
+
+    plot(broad_years, plot_broad_inc_care, col="red", type="l", xlab="Year",ylab= unique(data_broad$Currency), ylim=c(minincome, maxincome), xlim=c(minyear, maxyear))
+    title(main=sprintf("%s's average personal Labour income in care work industry (broad)", unique(data_broad$Country)), cex.main=0.75)
+    lines(broad_years, plot_broad_inc_non, type="l", col="blue")
+    legend("bottomright",legend=c("Broad Care","Broad Non Care"),col=c("red","blue"),lty=1:1)
+    
+  } else {
+  plot(broad_years, plot_broad_size, col="red", type="l", xlab="Year",ylab= "Care Work Industry Size (%)", xlim=c(minyear, maxyear), ylim=c(minperc, maxperc))
+  title(main=sprintf("Percentage of %s's care work industry size relative to total industry size (broad,concise)", unique(data_broad$Country)),cex.main=0.75)
+  lines(concise_years, plot_concise_size, type="l", col="lightpink")
+  legend("bottomright",legend=c("Broad","Concise"),col=c("red","lightpink"),lty=1:1)
+
+  plot(broad_years, plot_broad_inc_care, col="red", type="l", xlab="Year", ylab=unique(data_broad$Currency), ylim=c(minincome, maxincome), xlim=c(minyear, maxyear))
+  title(main=sprintf("%s's average personal Labour income in care work industry (broad,concise) ", unique(data_broad$Country)), cex.main=0.75)
+  lines(broad_years, plot_broad_inc_non, type="l", col="blue")
+  lines(concise_years, plot_concise_inc_care, type="l", col="lightpink")
+  lines(concise_years, plot_concise_inc_non, type="l", col="lightblue")
+legend("bottomright",legend=c("Broad Care", "Broad Non Care", "Concise Care", "Concise Non Care"),col=c("red", "blue", "lightpink", "lightblue"),lty=1:1)
+  }
+}
+```
+
+# Australia
+
+```{r australia, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Australia")
+```
+
+# Austria
+
+```{r austria, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Austria")
+```
+
+# Belgium 
+
+```{r belgium, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Belgium")
+```
+
+# Brazil 
+
+```{r brazil, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Brazil")
+```
+
+# Chile
+
+```{r chile, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Chile")
+```
+
+# Columbia
+
+```{r columbia, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Columbia")
+```
+
+# Czech Republic
+
+```{r czech republic, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Czech Republic")
+```
+
+# Denmark
+
+```{r denmark, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Denmark")
+```
+
+# Dominican Republic
+
+```{r dominican republic, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Dominican Republic")
+```
+
+# Egypt
+
+```{r egypt, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Egypt")
+```
+
+# Estonia
+
+```{r estonia, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Estonia")
+```
+
+# Finland
+
+```{r finland, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Finland")
+```
+
+# France
+
+```{r france, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("France")
+```
+
+# Georgia
+
+```{r georgia, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Georgia")
+```
+
+# Germany
+
+```{r germany, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Germany")
+```
+
+# Greece
+
+```{r greece, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Greece")
+```
+
+# Guatemala
+
+```{r guatemala, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Guatemala")
+```
+
+# Hungary
+
+```{r hungary, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Hungary")
+```
+
+# Iceland
+
+```{r iceland, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Iceland")
+```
+
+# India
+
+```{r india, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("India")
+```
+
+# Ireland
+
+```{r ireland, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Ireland")
+```
+
+# Israel
+
+```{r israel, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Israel")
+```
+
+# Italy
+
+```{r italy, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Italy")
+```
+
+# Ivory Coast
+
+```{r ivory coast, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Ivory Coast")
+```
+
+# Japan
+
+```{r jp, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Japan")
+```
+
+# Lithuania
+
+```{r lit, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Lithuania")
+```
+
+# Luxembourg
+
+```{r lux, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Luxembourg")
+```
+
+# Mexico
+
+```{r mex, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Mexico")
+```
+
+# Netherlands
+
+```{r net, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Netherlands")
+```
+
+# Norway
+
+```{r norway, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Norway")
+```
+
+# Panama
+
+```{r pan, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Panama")
+```
+
+# Paraguay
+
+```{r par, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Paraguay")
+```
+
+# Peru
+
+```{r peru, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Peru")
+```
+
+# Poland
+
+```{r poland, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Poland")
+```
+
+# Russia
+
+```{r rus, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Russia")
+```
+
+# Serbia
+
+```{r serbia, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Serbia")
+```
+
+# Slovakia
+
+```{r slo, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Slovakia")
+```
+
+# South Africa
+
+```{r southa, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("South Africa")
+```
+
+
+# Spain
+
+```{r spain, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Spain")
+```
+
+# Sweden
+
+```{r sweden, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Sweden")
+```
+
+# Switzerland
+
+```{r swit, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Switzerland")
+```
+
+# Taiwan
+
+```{r tai, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Taiwan")
+```
+
+# United States
+
+```{r us, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("United States")
+```
+
+# Uruguay
+
+```{r uruguay, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Uruguay")
+```
+
+# Vietnam
+
+```{r vietnam, echo=FALSE, message=FALSE,warning=FALSE}
+create_plots("Vietnam")
+```
+
+# Sweden, Italy, U.S.
+
+```{r combined, echo-FALSE, message=FALSE, warning=FALSE}
+
+  data_broad <- lisdata[(lisdata$Country=="Sweden" | lisdata$Country=="Italy" | lisdata$Country=="United States") & lisdata$Carework=="Broad",]
+
+  plot_broad_size_Sweden <- data_broad[data_broad$Country=="Sweden", data_broad$Freq...Carework]
+  
+  plot_broad_size_Italy <- data_broad[data_broad$Country=="Italy", data_broad$Freq...Carework]
+  
+  plot_broad_size_US <- data_broad[data_broad$Country=="United States", data_broad$Freq...Carework]
+  
+  broad_years <- data_broad$Year
+  
+  plot_broad_inc_care <- data_broad$Mean.Income...Carework
+  
+  plot_broad_inc_non <- data_broad$Mean.Income...Non.Carework
+  
+  minincome <- min(data_broad$Mean.Income...Carework, data_broad$Mean.Income...Non.Carework)
+  
+  maxincome <- max(data_broad$Mean.Income...Carework, data_broad$Mean.Income...Non.Carework)
+  
+  minperc <- min(data_broad$Freq...Carework, data_broad$Freq...Non.Carework)
+  
+  maxperc <- max(data_broad$Freq...Carework, data_broad$Freq...Non.Carework)
+  
+  minyear <- min(data_broad$Year)
+  
+  maxyear <- max(data_broad$Year)
+
+plot(broad_years, plot_broad_size, type="l", xlab="Year", ylab="Care Work Industry Size (%)", col="red", xlim=c(minyear, maxyear), ylim=c(minperc, maxperc))
+    title(main=sprintf("Percentage of %s's care work industry size relative to total industry size (broad)", unique(data_broad$Country)), cex.main=0.75)
+
+    plot(broad_years, plot_broad_inc_care, col="red", type="l", xlab="Year",ylab= unique(data_broad$Currency), ylim=c(minincome, maxincome), xlim=c(minyear, maxyear))
+    title(main=sprintf("%s's average personal Labour income in care work industry (broad)", unique(data_broad$Country)), cex.main=0.75)
+    lines(broad_years, plot_broad_inc_non, type="l", col="blue")
+    legend("bottomright",legend=c("Broad Care","Broad Non Care"),col=c("red","blue"),lty=1:1)
+
+
+
+
+```
+
+
