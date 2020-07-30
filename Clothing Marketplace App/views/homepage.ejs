@@ -1,0 +1,92 @@
+<head>
+  <title>Homepage</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    body {
+      color: black;
+      opacity: 80%;
+      /* background-image: linear-gradient(darkgreen, green, lightgreen); */
+      background-image:url("https://i.imgur.com/qbk0byw.jpg");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    li {float: left;
+      list-style-type:none;
+    }
+
+
+
+    #main{
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="row container-fluid">
+    <div class="col-md-2 pt-3 ">
+      <h3 class="text-left"><%= name %></h3>
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="text-right col-md-2 pt-3">
+      <form action="/logout?_method=DELETE" method="POST">
+        <button class="btn btn-outline-dark" type="submit">Log Out</button>
+      </form>
+    </div>
+  </div>
+  <div class="row container-fluid">
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-10 text-center" id="main" style="background-image:url('https://i.imgur.com/Mh4VUDc.jpg')">
+      <nav class="navbar navbar-light rounded m-1 p-1">
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/addlisting">Add Clothing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/viewanalytics">Analytics</a>
+        </li>
+      </nav>
+      <hr>
+      <h3 class="text-left">your listings</h3>
+
+      <table class="table text-center" style="color: white">
+        <thead>
+         <tr>
+            <th scope="col">Clothing</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Size</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Price</th>
+            <th scope="col">Status</th>
+         </tr>
+         </thead>
+         <tbody>
+
+         <% for (var i = 0; i < listings.length; i++) { %>
+          <tr>
+            <td><%= listings[i].title %></td>
+            <td><%= listings[i].gender %></td>
+            <td><%= listings[i].size %></td>
+            <td><%= listings[i].brand %></td>
+            <td><%= listings[i].price %></td>
+            <td><%= listings[i].sold %></td>
+          </tr>
+         <% } %>
+         </tbody>
+      </table>
+
+      <div class="col-md-1">
+      </div>
+
+    </div>
+  </div>
+
+</body>

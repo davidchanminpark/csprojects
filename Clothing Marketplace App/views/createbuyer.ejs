@@ -1,0 +1,45 @@
+<html>
+<h1> Register Buyer Account</h1>
+<form action="/createSeller" method="post">
+
+Name: <input name="name">
+<p>
+Username: <input name="username">
+<p>
+Password: <input type="password" name="password" id="pw">
+<p>
+Confirm Password: <input type="password" name="passwordConfirm" id="pwc">
+<p>
+<input type="checkbox" onclick="show()">Show Password
+<p>
+Street Address: <input name="addressStreet">
+<p>
+State: <input name="state">
+<p>
+Zipcode: <input name="zipcode">
+<p>
+Payment Number: <input name="paymentNumber">
+<p>
+Card Holder Name: <input name="paymentName">
+<p>
+
+<script>
+function show() {
+  var x = document.getElementById("pw");
+  var y = document.getElementById("pwc")
+  if (x.type === "password") {
+    x.type = "text";
+    y.type = "text";
+  } else {
+    x.type = "password";
+    y.type = "password";
+  }
+}
+</script>
+
+<input type="submit" value="Create Account">
+
+</form>
+<a href="/loginpage">Login</a>
+
+</html>

@@ -1,0 +1,197 @@
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Register</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+  body{
+    color: black;
+    opacity: 0.75;
+    width: 100%;
+    background-image:url('https://i.imgur.com/EzrZHse.jpg');
+    background-att: scroll;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+  }
+  #main{
+    background-color: white;
+  }
+
+  </style>
+</head>
+<body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active font-weight-bold text-white" href="/loginpage">Back to Login</a>
+    </li>
+  </ul>
+  <div class="row container-fluid justify-content-md-center ">
+    <div id="main"class="col-sm-8 mb-5 pt-1">
+      <h1 class="text-center pt-3">Register Account</h1>
+
+      <form action="/createSeller" method="post">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input name="name" id="name" class="form-control" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input name="username" id="username" class="form-control" placeholder="This will be your login username">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="pw">Password</label>
+            <input type=password name="password" id="pw" class="form-control" placeholder="At least 6 characters recommended">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="pwc">Confirm Password</label>
+            <input type=password id="pwc" class="form-control">
+          </div>
+          <div class="form-check col-md-4 pl-4">
+            <input type="checkbox" id="checkbox" class="form-check-input" onclick="show()">
+            <label class="form-check-label" for="checkbox">Show Password</label>
+          </div>
+        </div>
+        <!-- <div class="input-group form-group">
+          <div class="form-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon">Upload</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" name="file" id="filepic" class="custom-file-input">
+            <label for="filepic" class="custom-file-label">Choose File</label>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label for="storename">Store Name</label>
+          <input name="storeName" id="storename" class="form-control" placeholder="Enter a unique store name">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" name= "addressStreet" class="form-control" placeholder="1234 Main St">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" name="city" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <select id="inputState" name="state" class="form-control">
+              <option selected>Choose...</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District Of Columbia</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" name="zipcode" class="form-control" id="inputZip">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="paymentnumber">Payment Number</label>
+            <input type="text" name="paymentNumber" class="form-control" id="paymentnumber" placeholder="16 digit card number">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="cardholdername">Card Holder Name</label>
+            <input type="text" name="paymentName" class="form-control" id="cardholdername" placeholder="Enter full name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pref">Preferences</label>
+          <textarea name="preferences"class="form-control" rows="4" cols="50" id="pref" placeholder="Generate preferences/keywords for your store and separate by comma (ex: pref1,pref2,pref3)"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="bio">Store Biography</label>
+          <textarea name="bio"class="form-control" rows="4" cols="50" id="bio" placeholder="Introduce your store!"></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+  function show() {
+    var x = document.getElementById("pw");
+    var y = document.getElementById("pwc")
+    if (x.type === "password") {
+      x.type = "text";
+      y.type = "text";
+    } else {
+      x.type = "password";
+      y.type = "password";
+    }
+  }
+
+  $('.custom-file-input').on('change',function(){
+    //get the file name
+    var fileName = $(this).val();
+    fileName = fileName.replace("C:\\fakepath\\", "");
+    //replace the "Choose a file" label
+    $(this).next('.custom-file-label').html(fileName);
+  })
+  </script>
+
+
+</body>
+
+</html>

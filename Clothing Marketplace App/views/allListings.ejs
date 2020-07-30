@@ -1,0 +1,54 @@
+<head>
+  <title>Admin Manage Listings</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="pr-4 mt-4">
+    <h3 class="text-center">Admin Page</h3>
+  </div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/viewAllListings">Manage Listings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/viewAllListings">Manage Sellers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/loginpage">Back to Login</a>
+      </li>
+    </ul>
+
+</body>
+
+<table class="table table-striped">
+  <thead>
+   <tr>
+      <th scope="col">Clothing</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Size</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price</th>
+      <th scope="col">Store</th>
+   </tr>
+   </thead>
+   <tbody>
+
+   <% for (var i = 0; i < listings.length; i++) { %>
+    <tr>
+      <td><%= listings[i].title %></td>
+      <td><%= listings[i].gender %></td>
+      <td><%= listings[i].size %></td>
+      <td><%= listings[i].brand %></td>
+      <td><%= listings[i].price %></td>
+      <td><%= listings[i].store %></td>
+    </tr>
+   <% } %>
+   </tbody>
+</table>
+
+<form action="/admin" method="GET">
+  <button type="submit">Back to Admin Page</button>
+</form>
